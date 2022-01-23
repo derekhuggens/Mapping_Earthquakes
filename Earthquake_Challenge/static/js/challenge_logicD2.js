@@ -15,18 +15,17 @@ let satelliteStreets = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/sate
 	accessToken: API_KEY
 });
 
-// We create the second tile layer that will be the background of our map.
-let dark = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/dark-v10/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-	attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery (c) <a href="https://www.mapbox.com/">Mapbox</a>',
-	maxZoom: 18,
-	accessToken: API_KEY
+// Create the map object with center, zoom level and default layer.
+let map = L.map('mapid', {
+	center: [40.7, -94.5],
+	zoom: 3,
+	layers: [streets]
 });
 
 // Create a base layer that holds all three maps.
 let baseMaps = {
   "Streets": streets,
-  "Satellite": satelliteStreets,
-  "Dark": dark
+  "Satellite": satelliteStreets
 };
 
 // 1. Add a 2nd layer group for the tectonic plate data.
@@ -40,13 +39,6 @@ let overlays = {
   "Earthquakes": allEarthquakes,
   "Major Earthquakes": majorEarthquakes
 };
-
-// Create the map object with center, zoom level and default layer.
-let map = L.map('mapid', {
-	center: [40.7, -94.5],
-	zoom: 3,
-	layers: [streets, allEarthquakes, plateBoundaries, majorEarthquakes]
-});
 
 // Then we add a control to the map that will allow the user to change which
 // layers are visible.
@@ -187,12 +179,12 @@ legend.onAdd = function() {
     // 5. Change the color function to use three colors for the major earthquakes based on the magnitude of the earthquake.
     function getColor(magnitude) {
       if (magnitude > 6) {
-        return "#530000";
+        return "a1170a";
       }
       if (magnitude > 5) {
         return "#ea2c2c";
       }
-      if (magnitude <= 5) {
+      if (magnitude < 5) {
         return "#ea822c";
       }
     }

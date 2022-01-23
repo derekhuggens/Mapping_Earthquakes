@@ -187,7 +187,7 @@ legend.onAdd = function() {
     // 5. Change the color function to use three colors for the major earthquakes based on the magnitude of the earthquake.
     function getColor(magnitude) {
       if (magnitude > 6) {
-        return "#530000";
+        return "a1170a";
       }
       if (magnitude > 5) {
         return "#ea2c2c";
